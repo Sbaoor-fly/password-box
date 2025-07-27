@@ -38,7 +38,7 @@
 
 1.  **克隆项目**:
     ```bash
-    git clone <https://github.com/sbaoor-fly/password-box.git>
+    git clone https://github.com/sbaoor-fly/password-box.git
     ```
 
 2.  **进入后端目录并安装依赖**:
@@ -77,8 +77,8 @@
 
 1.  **进入前端目录并安装依赖**:
     ```bash
-    cd ../password-box-frontend 
-    npm install
+    cd password-box
+    pnpm install
     ```
 
 2.  **编译前端项目**:
@@ -93,7 +93,7 @@
     - 将前端 `dist` 文件夹中的**所有内容**复制到后端项目的 `public` 文件夹下（如果 `public` 文件夹不存在，请手动创建）。
 
 2.  **启动服务器**:
-    - 返回到**后端目录** (`password-box-backend`)。
+    - 返回到**后端目录** (`backend`)。
     - **(首次运行前)** 如果存在旧的、未加密的 `db.json` 文件，请先将其删除。
     - 执行启动命令：
     ```bash
