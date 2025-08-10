@@ -22,3 +22,13 @@ export const login = async (username, password) => {
 
     return response.json(); // 成功时返回 { accessToken: '...' }
 };
+
+/**
+ * [新增] 客户端退出登录
+ * 清除本地存储的用户凭证 (token)
+ */
+export const logout = () => {
+    // 从 localStorage 移除 access token
+    localStorage.removeItem('accessToken');
+    // 如果您还存储了其他用户信息，也应在此一并清除
+};

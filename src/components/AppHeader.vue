@@ -3,7 +3,6 @@
         <div class="header-content">
             <h1>我的密码箱</h1>
             <div class="actions">
-                <!-- 根据当前路由显示不同按钮 -->
                 <router-link to="/manage" v-if="$route.path === '/'">
                     <el-button :icon="Setting">管理项目</el-button>
                 </router-link>
@@ -11,11 +10,14 @@
                     <el-button :icon="HomeFilled">返回主页</el-button>
                 </router-link>
 
-                <!-- [核心修复] 直接使用 v-model 绑定注入的 searchQuery -->
                 <el-input v-model="searchQuery" placeholder="搜索密码标题..." :prefix-icon="Search" clearable
                     class="search-input" />
                 <el-button type="primary" :icon="Plus" @click="openAddDialog">
                     新增项目
+                </el-button>
+
+                <el-button type="danger" :icon="SwitchButton" @click="handleLogout">
+                    退出登录
                 </el-button>
             </div>
         </div>
@@ -24,15 +26,26 @@
 
 <script setup>
 import { inject } from 'vue';
-import { Search, Plus, Setting, HomeFilled } from '@element-plus/icons-vue';
+import { useRouter } from 'vue-router'; // [新增] 导入 useRouter 用于路由跳转
+import { Search, Plus, Setting, HomeFilled, SwitchButton } from '@element-plus/icons-vue'; // [新增] 导入 SwitchButton 图标
+import { logout } from '../services/authService'; // [新增] 导入 logout 方法
 
 // 从顶层 App.vue 注入状态和方法
-// searchQuery 本身就是一个 ref，是响应式的
 const searchQuery = inject('searchQuery');
 const openAddDialog = inject('openAddDialog');
 
-// [核心修复] 不再需要 emit 事件，因为 v-model 会直接修改被注入的 ref
-// const emit = defineEmits(['update:searchQuery']);
+// [新增] 获取 router 实例
+const router = useRouter();
+
+/**
+ * [新增] 处理退出登录的函数
+ */
+const handleLogout = () => {
+    // 调用认证服务中的 logout 方法，清除本地 token
+    logout();
+    // 跳转回登录页面
+    router.push('/login');
+};
 </script>
 
 <style scoped>
